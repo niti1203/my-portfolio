@@ -1,26 +1,328 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e5e5e7;
+  /* Cleaner Silver/Grey */
+  --foreground: #1a1a1a;
+  /* Dark text for readability */
+  --accent: #ff0077;
+  /* Saturated Pink */
+  --accent-secondary: #ffaa00;
+  /* Vibrant Orange */
+  --accent-tertiary: #7000ff;
+  /* Electric Purple */
+  --accent-quaternary: #00ffaa;
+  /* Mint */
+  --muted: #4b4b4b;
+  /* Darker muted text */
+  --surface: #f0f0f2;
+  --surface-light: #f8f8fa;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --grid-color: rgba(0, 0, 0, 0.05);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-tertiary: var(--accent-tertiary);
+  --color-accent-quaternary: var(--accent-quaternary);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-light: var(--surface-light);
+  --color-border: var(--border-color);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* scroll-behavior handled by Lenis */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0077;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: #1a1a1a;
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Ping */
+@keyframes ping {
+
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Grain overlay */
+.grain-overlay::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* Mesh Gradient Background */
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(339, 100%, 85%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 100%, 85%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(160, 100%, 85%, 1) 0, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(280, 100%, 85%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(40, 100%, 85%, 1) 0, transparent 50%);
+  filter: blur(120px);
+  opacity: 0.5;
+}
+
+/* Magnetic button */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Glow */
+.glow {
+  box-shadow:
+    0 0 40px rgba(255, 238, 0, 0.2),
+    0 0 80px rgba(255, 238, 0, 0.08);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Line accent */
+.line-accent {
+  position: relative;
+}
+
+.line-accent::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* HR accent */
+.hr-accent {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+}
+
+/* Cursor */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease;
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.2s ease;
+  mix-blend-mode: difference;
+}
+
+/* ─── Legacy grid utilities (kept for any existing sections) ─── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.grid-accent {
+  --grid-color: rgba(0, 255, 170, 0.07);
+}
+
+.grid-secondary {
+  --grid-color: rgba(255, 0, 85, 0.07);
+}
+
+.grid-tertiary {
+  --grid-color: rgba(112, 0, 255, 0.07);
+}
+
+.grid-quaternary {
+  --grid-color: rgba(255, 170, 0, 0.07);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(var(--grid-color) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GRAPH PAPER TEXTURES
+   About Me       → graph-paper-pink
+   Skills & Tools → graph-paper-brown
+   Get In Touch   → graph-paper-yellow
+───────────────────────────────────────────────────────────── */
+
+/* About Me — pinkish warm tint */
+.graph-paper-pink {
+  background-color: #f0e6e0;
+  background-image:
+    linear-gradient(rgba(160, 60, 60, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160, 60, 60, 0.18) 1px, transparent 1px),
+    linear-gradient(rgba(160, 60, 60, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160, 60, 60, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* Skills & Tools — warm brown tint */
+.graph-paper-brown {
+  background-color: #ede3d0;
+  background-image:
+    linear-gradient(rgba(120, 80, 20, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 80, 20, 0.2) 1px, transparent 1px),
+    linear-gradient(rgba(120, 80, 20, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 80, 20, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* Get In Touch — pale yellow tint */
+.graph-paper-yellow {
+  background-color: #f0ead0;
+  background-image:
+    linear-gradient(rgba(160, 130, 20, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160, 130, 20, 0.18) 1px, transparent 1px),
+    linear-gradient(rgba(160, 130, 20, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160, 130, 20, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* ─── Redesign Utilities ─── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.border-glow-pink {
+  box-shadow: 0 0 15px rgba(255, 0, 119, 0.1), inset 0 0 10px rgba(255, 0, 119, 0.05);
+}
+
+.border-glow-pink:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 119, 0.2), inset 0 0 15px rgba(255, 0, 119, 0.1);
+  border-color: rgba(255, 0, 119, 0.4);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.noise-texture {
+  position: relative;
+}
+
+.noise-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 2s;
 }

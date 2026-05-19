@@ -1,0 +1,155 @@
+.stepper-outer-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.stepper-circle-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 42rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 0, 119, 0.2);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+.step-indicator-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.step-content-default {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.step-default {
+  padding: 2rem;
+}
+
+.stepper-footer-container {
+  padding: 0 2rem 2rem 2rem;
+}
+
+.stepper-footer-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.stepper-footer-nav.spread {
+  justify-content: space-between;
+}
+
+.stepper-footer-nav.end {
+  justify-content: flex-end;
+}
+
+.stepper-back-button {
+  transition: all 0.3s ease;
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: transparent;
+}
+
+.stepper-back-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--foreground);
+}
+
+.stepper-back-button.inactive {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.stepper-next-button {
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--accent-tertiary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(112, 0, 255, 0.2);
+}
+
+.stepper-next-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(112, 0, 255, 0.3);
+}
+
+.stepper-next-button:active {
+  transform: translateY(0);
+}
+
+.stepper-step-indicator {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+}
+
+.stepper-step-indicator-inner {
+  display: flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.stepper-active-dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  background-color: #fff;
+}
+
+.stepper-step-number {
+  font-family: var(--font-mono);
+}
+
+.stepper-step-connector {
+  position: relative;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  height: 2px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.stepper-step-connector-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+.stepper-check-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #fff;
+}
